@@ -3,6 +3,7 @@ package com.octopod.nixium.utils;
 
 import com.octopod.nixium.nxreality.NXRPlugin;
 import java.util.regex.*;
+import org.apache.commons.lang.StringUtils;
 import org.bukkit.ChatColor;
 
 public class NXTextF {
@@ -133,6 +134,18 @@ public class NXTextF {
         }
 
         return width;
+        
+    }
+    
+    static public String capitalizeFully(String text){
+        
+        String[] split = text.split(" ");
+	for(int i = 0; i < split.length; ++i) {
+	    char[] chars = split[i].toCharArray();
+	    chars[0] = Character.toUpperCase(chars[0]);
+	    split[i] = new String(chars);
+        }
+        return StringUtils.join(split, " ");
         
     }
     

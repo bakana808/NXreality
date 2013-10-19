@@ -25,7 +25,18 @@
     <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
-
+  
+  <repositories>
+    <repository>
+        <id>bukkit-repo</id>
+        <url>http://repo.bukkit.org/content/groups/public/</url>
+    </repository>
+    <repository>
+        <id>sk89q-repo</id>
+        <url>http://maven.sk89q.com/artifactory/repo/</url>
+    </repository>
+  </repositories>
+  
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -36,17 +47,17 @@
     <dependency>
       <groupId>org.bukkit</groupId>
       <artifactId>bukkit</artifactId>
-      <version>1.6.4-R1.0</version>
+      <version>1.6.4-R0.1-SNAPSHOT</version>
     </dependency>
     <dependency>
-      <groupId>worldedit</groupId>
+      <groupId>com.sk89q</groupId>
       <artifactId>worldedit</artifactId>
-      <version>0</version>
+      <version>5.5.8</version>
     </dependency>
     <dependency>
-      <groupId>worldguard</groupId>
+      <groupId>com.sk89q</groupId>
       <artifactId>worldguard</artifactId>
-      <version>0</version>
+      <version>5.8-SNAPSHOT</version>
     </dependency>
   </dependencies>
 </project>

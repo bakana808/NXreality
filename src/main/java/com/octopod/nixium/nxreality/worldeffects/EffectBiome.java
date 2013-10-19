@@ -1,6 +1,6 @@
 
 package com.octopod.nixium.nxreality.worldeffects;
-import org.apache.commons.lang3.text.WordUtils;
+import com.octopod.nixium.utils.NXTextF;
 import org.bukkit.ChatColor;
 import org.bukkit.block.Biome;
 import org.bukkit.entity.Player;
@@ -16,7 +16,7 @@ public class EffectBiome extends NXRWorldEffects{
     }
     
     public String getBiomeName(){
-        return WordUtils.capitalizeFully(biome.name());
+        return NXTextF.capitalizeFully(biome.name());
     }
     
     @Override
