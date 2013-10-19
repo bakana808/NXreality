@@ -1,0 +1,12 @@
+name: NXreality
+main: com.octopod.nixium.nxreality.NXreality
+version: 0.1
+description: 'hello'
+
+commands:
+    biome:
+        description: Prints biome.
+        usage: /<command>
+    textf:
+        description: Prints text.
+        usage: /<command> <text> <width> <alignment>
