@@ -25,8 +25,7 @@ public abstract class NXRWorldEffects {
 	static private HashMap<Player, Integer> health_interval = new HashMap<>();
         static private HashMap<Player, Integer> food_interval = new HashMap<>();
         static private BukkitTask timer;
-        
-        private int type; //0: biome, 1: water, 2: wgregion, 3:altitude
+
         private YamlConfiguration config; //The biome, if the type is 0
         
         public NXRWorldEffects(){this.config = NXRConfig.getConfig();}
@@ -44,12 +43,12 @@ public abstract class NXRWorldEffects {
             int total = 0;
             boolean inWater = (player.getEyeLocation().getBlock().getType() == Material.WATER || player.getEyeLocation().getBlock().getType() == Material.STATIONARY_WATER);
 
-            ProtectedRegion region = getPrioritizedRegion(player.getLocation());
+            //ProtectedRegion region = getPrioritizedRegion(player.getLocation());
             Biome biome = player.getLocation().getBlock().getBiome();
             
             EffectBiome eBiome = new EffectBiome(biome);
             EffectWater eWater = new EffectWater();
-            EffectWG eWG = new EffectWG(region);
+            //EffectWG eWG = new EffectWG(region);
             
             if(!eBiome.playerCanOverride(player)) {total += eBiome.getHealthInterval();}
             if(!eWater.playerCanOverride(player) && inWater) {total += eWater.getHealthInterval();}
@@ -63,12 +62,12 @@ public abstract class NXRWorldEffects {
             double total = 1;
             boolean inWater = (player.getEyeLocation().getBlock().getType() == Material.WATER || player.getEyeLocation().getBlock().getType() == Material.STATIONARY_WATER);
 
-            ProtectedRegion region = getPrioritizedRegion(player.getLocation());
+            //ProtectedRegion region = getPrioritizedRegion(player.getLocation());
             Biome biome = player.getLocation().getBlock().getBiome();
             
             EffectBiome eBiome = new EffectBiome(biome);
             EffectWater eWater = new EffectWater();
-            EffectWG eWG = new EffectWG(region);
+            //EffectWG eWG = new EffectWG(region);
             
             if(!eBiome.playerCanOverride(player)) {total = eBiome.getFoodInterval() / total;}
             if(!eWater.playerCanOverride(player) && inWater) {total = eWater.getFoodInterval() / total;}
@@ -133,19 +132,19 @@ public abstract class NXRWorldEffects {
 
 	}
 
-        static private ProtectedRegion getPrioritizedRegion(Location loc) {
-            ApplicableRegionSet set = WGBukkit.getRegionManager(loc.getWorld()).getApplicableRegions(loc);
+    static private ProtectedRegion getPrioritizedRegion(Location loc) {
+        ApplicableRegionSet set = WGBukkit.getRegionManager(loc.getWorld()).getApplicableRegions(loc);
 
-            int highestPriority = -1;
-            ProtectedRegion highestRegion = null;
-            for(ProtectedRegion region: set){
-                if(region.getPriority() >= highestPriority) {
-                    highestPriority = region.getPriority();
-                    highestRegion = region;
-                }
+        int highestPriority = -1;
+        ProtectedRegion highestRegion = null;
+        for(ProtectedRegion region: set){
+            if(region.getPriority() >= highestPriority) {
+                highestPriority = region.getPriority();
+                highestRegion = region;
             }
-
-            return highestRegion;
         }
+
+        return highestRegion;
+    }
        	
 }
