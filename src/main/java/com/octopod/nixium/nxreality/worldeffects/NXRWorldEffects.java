@@ -114,8 +114,8 @@ public abstract class NXRWorldEffects {
                 }
             };
             
-            TaskUtils.runInterval(20, task);
-            
+            timer = TaskUtils.runInterval(20, task);
+
         }
 
         //Gets a biome from a string name.

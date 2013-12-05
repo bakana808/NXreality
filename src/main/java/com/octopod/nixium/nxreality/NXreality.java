@@ -16,7 +16,7 @@ public class NXreality extends JavaPlugin{
     public void onEnable(){
         plugin = this;
         new Config(this);
-    	getCommand("biome").setExecutor(new ShowBiomeCommand(this));
+        getCommand("biome").setExecutor(new ShowBiomeCommand(this));
         getCommand("textf").setExecutor(new FormatTextCommand(this));
         NXRWorldEffects.startTimer();
     }
