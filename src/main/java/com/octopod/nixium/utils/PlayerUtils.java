@@ -3,11 +3,11 @@ package com.octopod.nixium.utils;
 import org.bukkit.EntityEffect;
 import org.bukkit.entity.Player;
 
-public class NXPlayer{
+public class PlayerUtils{
     
         private Player player;
 	
-        public NXPlayer(Player target){player = target;}
+        public PlayerUtils(Player target){player = target;}
         
 	public void hurt(int amount){
 		

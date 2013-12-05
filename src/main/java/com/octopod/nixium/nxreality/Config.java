@@ -7,7 +7,7 @@ import org.bukkit.block.Biome;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 
-public class NXRConfig{
+public class Config{
 
     static private double configVers = 0.2;
     static private YamlConfiguration config;
@@ -21,7 +21,7 @@ public class NXRConfig{
 
                 YamlConfiguration newConfig = new YamlConfiguration();
 
-                NXRPlugin.console("Generating config.yml...");
+                NXreality.log("Generating config.yml...");
 
                 newConfig.set("version", configVers);
 
@@ -51,9 +51,9 @@ public class NXRConfig{
 
                 config = newConfig;
 
-                NXRPlugin.console("Success!");
+                NXreality.log("Success!");
 
-        }catch (Exception e) {NXRPlugin.console("Unable to generate config.yml!");}
+        }catch (Exception e) {NXreality.log("Unable to generate config.yml!");}
     }
 
     static public void tryReadBiomeConfig() {
@@ -66,21 +66,21 @@ public class NXRConfig{
             double version = Double.parseDouble(readConfig.get("version").toString());
             
             if(version < configVers){
-                NXRPlugin.console("New config version! Regenerating...");
+            	NXreality.log("New config version! Regenerating...");
                 tryWriteBiomeConfig();
             }else{
-                NXRConfig.config = readConfig;
-                NXRPlugin.console("Success!");                           
+                Config.config = readConfig;
+                NXreality.log("Success!");                           
             }
 
         }catch (IOException | InvalidConfigurationException e) {
-            NXRPlugin.console("Couldn't read config.yml, disabling plugin.");
-            NXRPlugin.getPlugin().getPluginLoader().disablePlugin(NXRPlugin.getPlugin());
+        	NXreality.log("Couldn't read config.yml, disabling plugin.");
+            NXreality.getInstance().getPluginLoader().disablePlugin(NXreality.getInstance());
         }
 
     }
 
-    public NXRConfig(NXreality plugin){
+    public Config(NXreality plugin){
 
         File folder = new File("plugins/nxReality/");
         if(!folder.exists()){folder.mkdir();}

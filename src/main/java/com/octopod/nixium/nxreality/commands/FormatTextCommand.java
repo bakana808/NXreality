@@ -1,6 +1,6 @@
 package com.octopod.nixium.nxreality.commands;
 
-import com.octopod.nixium.utils.NXTextF;
+import com.octopod.nixium.utils.TextUtils;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -24,7 +24,7 @@ public class FormatTextCommand implements CommandExecutor{
         int alignment = Integer.parseInt(args[1]);
         String text = StringUtils.join(args, " ", 2, args.length);
         Player player = (Player)sender;
-        player.sendMessage(NXTextF.block(ChatColor.translateAlternateColorCodes('&', text), width, alignment));
+        player.sendMessage(TextUtils.block(ChatColor.translateAlternateColorCodes('&', text), width, alignment));
 
         return true;
 

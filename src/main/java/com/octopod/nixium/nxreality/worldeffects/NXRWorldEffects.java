@@ -3,10 +3,9 @@ package com.octopod.nixium.nxreality.worldeffects;
 import java.util.HashMap;
 
 import com.octopod.nixium.nxreality.NXreality;
-import com.octopod.nixium.nxreality.NXRConfig;
-import com.octopod.nixium.utils.NXPlayer;
-import com.octopod.nixium.nxreality.NXRPlugin;
-import com.octopod.nixium.utils.NXTimer;
+import com.octopod.nixium.nxreality.Config;
+import com.octopod.nixium.utils.PlayerUtils;
+import com.octopod.nixium.utils.TaskUtils;
 import com.sk89q.worldguard.bukkit.WGBukkit;
 import com.sk89q.worldguard.protection.ApplicableRegionSet;
 
@@ -22,13 +21,13 @@ import org.bukkit.Location;
 
 public abstract class NXRWorldEffects {
     
-	static private HashMap<Player, Integer> health_interval = new HashMap<>();
+		static private HashMap<Player, Integer> health_interval = new HashMap<>();
         static private HashMap<Player, Integer> food_interval = new HashMap<>();
         static private BukkitTask timer;
 
         private YamlConfiguration config; //The biome, if the type is 0
         
-        public NXRWorldEffects(){this.config = NXRConfig.getConfig();}
+        public NXRWorldEffects(){this.config = Config.getConfig();}
         
         public YamlConfiguration getConfig(){return this.config;}
         
@@ -81,27 +80,31 @@ public abstract class NXRWorldEffects {
             
             if(timer != null){timer.cancel();}
 
-            NXTimer.runInterval(20L, new Runnable(){
-                NXreality plugin = NXRPlugin.getPlugin();
+            Runnable task = new Runnable(){
+                NXreality plugin = NXreality.getInstance();
                 int healthInterval;
                 int foodInterval;
                 public void run(){
                     
                     for(Player player:plugin.getServer().getOnlinePlayers()){
                         
-                        NXPlayer p = new NXPlayer(player);
-                        if(!health_interval.containsKey(player) || health_interval.get(player) <= 0) {
+                        PlayerUtils p = new PlayerUtils(player);
+                        if(health_interval.get(player) <= 0 || !health_interval.containsKey(player)) {
+                        	
                             healthInterval = getTotalHealthInterval(player);
                             health_interval.put(player, healthInterval); 
                             if(healthInterval > 0) {p.hurt(1);}
+                            
                         }else{
                             healthInterval = health_interval.get(player);
                         }
 
-                        if(!food_interval.containsKey(player) || food_interval.get(player) <= 0) {
+                        if(food_interval.get(player) <= 0 || !food_interval.containsKey(player)) {
+                        	
                             foodInterval = getTotalFoodInterval(player);
                             food_interval.put(player, foodInterval); 
                             if(foodInterval > 0) {p.hurtFood(1);}
+                            
                         }else{
                             foodInterval = food_interval.get(player);
                         }
@@ -113,8 +116,8 @@ public abstract class NXRWorldEffects {
 
                     }
                     
-                }}
-            );
+                }
+            };
             
         }
 

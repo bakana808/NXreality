@@ -1,6 +1,6 @@
 package com.octopod.nixium.nxreality.commands;
 
-import com.octopod.nixium.utils.NXTextF;
+import com.octopod.nixium.utils.TextUtils;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -17,7 +17,7 @@ public class ShowBiomeCommand implements CommandExecutor{
 	
 	public ShowBiomeCommand(NXreality plugin) {this.plugin = plugin;}
 
-        @Override
+    @Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		
 		if(!(sender instanceof Player)) { return false; }
@@ -26,7 +26,7 @@ public class ShowBiomeCommand implements CommandExecutor{
 
 		EffectBiome eBiome = new EffectBiome(player.getLocation().getBlock().getBiome());
                 player.sendMessage(new String[]{
-                    NXTextF.block(ChatColor.GRAY + "You are in the biome " + ChatColor.GOLD + eBiome.getBiomeName(), 320, 2, "-"),
+                    TextUtils.block(ChatColor.GRAY + "You are in the biome " + ChatColor.GOLD + eBiome.getBiomeName(), 320, 2, true, "-"),
                     ChatColor.RED + "Hurt Interval: " + ChatColor.WHITE + eBiome.getHealthInterval(),
                     ChatColor.RED + "Food Interval: " + ChatColor.WHITE + eBiome.getFoodInterval()
                 });
