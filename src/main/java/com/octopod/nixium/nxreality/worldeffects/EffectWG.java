@@ -1,8 +1,13 @@
 
 package com.octopod.nixium.nxreality.worldeffects;
 import org.bukkit.entity.Player;
+
+import com.sk89q.worldguard.bukkit.WGBukkit;
+import com.sk89q.worldguard.protection.ApplicableRegionSet;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
+
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.inventory.PlayerInventory;
 
 public class EffectWG extends NXRWorldEffects{
@@ -62,5 +67,20 @@ public class EffectWG extends NXRWorldEffects{
         }
         return override;
     }
+    
+    static public ProtectedRegion getPrioritizedRegion(Location loc) {
+        ApplicableRegionSet set = WGBukkit.getRegionManager(loc.getWorld()).getApplicableRegions(loc);
 
+        int highestPriority = -1;
+        ProtectedRegion highestRegion = null;
+        for(ProtectedRegion region: set){
+            if(region.getPriority() >= highestPriority) {
+                highestPriority = region.getPriority();
+                highestRegion = region;
+            }
+        }
+
+        return highestRegion;
+    }
+    
 }

@@ -6,8 +6,6 @@ import com.octopod.nixium.nxreality.NXreality;
 import com.octopod.nixium.nxreality.Config;
 import com.octopod.nixium.utils.PlayerUtils;
 import com.octopod.nixium.utils.TaskUtils;
-import com.sk89q.worldguard.bukkit.WGBukkit;
-import com.sk89q.worldguard.protection.ApplicableRegionSet;
 
 import org.bukkit.Material;
 import org.bukkit.block.Biome;
@@ -15,9 +13,6 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.configuration.file.YamlConfiguration;
-
-import com.sk89q.worldguard.protection.regions.ProtectedRegion;
-import org.bukkit.Location;
 
 public abstract class NXRWorldEffects {
     
@@ -119,6 +114,8 @@ public abstract class NXRWorldEffects {
                 }
             };
             
+            TaskUtils.runInterval(20, task);
+            
         }
 
         //Gets a biome from a string name.
@@ -134,20 +131,5 @@ public abstract class NXRWorldEffects {
 		return location.getBiome();
 
 	}
-
-    static private ProtectedRegion getPrioritizedRegion(Location loc) {
-        ApplicableRegionSet set = WGBukkit.getRegionManager(loc.getWorld()).getApplicableRegions(loc);
-
-        int highestPriority = -1;
-        ProtectedRegion highestRegion = null;
-        for(ProtectedRegion region: set){
-            if(region.getPriority() >= highestPriority) {
-                highestPriority = region.getPriority();
-                highestRegion = region;
-            }
-        }
-
-        return highestRegion;
-    }
        	
 }
